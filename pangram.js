@@ -14,3 +14,19 @@ function isPangram(sentence){
 }
 console.log(isPangram("Fox dwarves chop my talking quiz job"));
 console.log(isPangram("Not a pangram"));
+//
+//
+//
+/*---This is a condensed version---*/
+//
+//
+function isPangram(sentence){
+    let newSentence = sentence.toLowerCase().replaceAll(" ", "");
+    console.log(newSentence);
+    for (let letter of "abcdefghijklmnopqrstuvwxyz")
+        if (!newSentence.includes(letter))  
+            return false;
+    return true;
+}
+console.log(isPangram("Fox dwarves chop my talking quiz job"));
+console.log(isPangram("Not a pangram"));
