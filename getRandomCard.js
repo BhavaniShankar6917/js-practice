@@ -12,3 +12,25 @@ function getCard(){
     return returnValue;
 }
 console.log(getCard());
+//
+//
+//
+/*---This is a condensed version---*/
+//
+//
+//
+function getCard(){
+    const valueArray = ['A', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K'];
+    const suitsArray = ['clubs','spades', 'hearts', 'diamonds'];
+    let returnValue = {
+        value: pick(valueArray),
+        suits: pick(suitsArray)
+    };
+    return returnValue;
+}
+console.log(getCard());
+
+function pick(arr){
+    const idx = Math.floor(Math.random() * arr.length);
+    return arr[idx];
+}
