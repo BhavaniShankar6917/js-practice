@@ -107,8 +107,10 @@ const makeList = (games, targetTeam) => {
     const gameLi = document.createElement("li");
     gameLi.innerHTML = scoreLine(game);
     gameLi.classList.add(isWinner(game, targetTeam) ? "win" : "lose");
-    document.body.append(gameLi);
+    // document.body.append(gameLi);
+    ulParent.appendChild(gameLi);
   }
+
   return ulParent;
 };
 const isWinner = ({ homeTeam, awayTeam }, targetTeam) => {
@@ -129,4 +131,9 @@ const scoreLine = ({ homeTeam, awayTeam }) => {
 };
 
 const list = makeList(warriorsGames, "Golden State");
-document.body.append(list);
+const list2 = makeList(warriorsGames, "Houston");
+const goldenState = document.querySelector("#gs");
+const houston = document.querySelector("#hs");
+
+goldenState.appendChild(list);
+houston.appendChild(list2);
