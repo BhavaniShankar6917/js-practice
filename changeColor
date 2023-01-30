@@ -1,0 +1,16 @@
+const colors = ['violet', 'indigo', 'blue', 'green', 'yellow', 'orange', 'red'];
+const container = document.createElement('div');
+container.classList.add('container');
+const h1 = document.querySelector('.pick-color');
+h1.insertAdjacentElement('afterend', container);
+for (let color of colors) {
+  const box = document.createElement('div');
+  box.style.backgroundColor = color;
+  box.classList.add('color-box');
+  container.append(box);
+  box.addEventListener('click',changeColor);
+  
+}
+function changeColor(){
+  h1.style.color = this.style.backgroundColor;
+};
