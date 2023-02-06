@@ -28,6 +28,7 @@ const request = (url) => {
     }, 1000);
   });
 };
+/********************NESTING**************************/
 request("/users")
   .then((res) => {
     const userid = res.data[0].id;
@@ -38,6 +39,24 @@ request("/users")
         // console.log(userid);
       });
     });
+  })
+  .catch((res) => {
+    console.log("status", res.status);
+  });
+
+
+/********************CHAINING*************************/
+request("/users")
+  .then((res) => {
+    const userid = res.data[0].id;
+    return request(`/users/${userid}`);
+  })
+  .then((res) => {
+    const country = res.data.country;
+    return request(`/users/${userid}/${country}`);
+  })
+  .then((res) => {
+    console.log(res.data);
   })
   .catch((res) => {
     console.log("status", res.status);
