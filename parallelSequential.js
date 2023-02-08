@@ -26,3 +26,12 @@ async function lightShow() {
   await p3;
 }
 lightShow();
+
+//alternate to parallel
+async function lightShow() {
+  const p1 = changeBodyColor("green", 1000);  //returns a promise here
+  const p2 = changeBodyColor("gold", 1000);
+  const p3 = changeBodyColor("silver", 1000);
+  await Promise.all([p1,p2,p3]);                //Promise.all accepts an array of promises. Await resolves the promises.
+}
+lightShow();
