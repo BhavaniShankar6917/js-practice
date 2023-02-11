@@ -1,0 +1,28 @@
+.controls {
+  position: absolute;
+  left: 100px;
+  top: 125px;
+  display: block;
+}
+.buttons-div {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 15px;
+}
+.input {
+  height: 100px;
+  width: 200px;
+  font-size: 60px;
+  font-family: monospace;
+  text-align: center;
+  outline-style: none;
+  border: none;
+}
+.buttons {
+  border: none;
+  font-size: 30px;
+}
+.buttons:hover {
+  cursor: pointer;
+}

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Timer</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div>
+      <div class="controls">
+        <input id="duration" class="input" placeholder="00:00" /><br />
+        <div class="buttons-div">
+          <button type="button" id="start-button" class="buttons">
+            <i class="fa-solid fa-play" style="color: green"></i>
+          </button>
+          <button type="button" id="pause-button" class="buttons">
+            <i class="fa-solid fa-pause" style="color: blue"></i>
+          </button>
+          <button type="button" id="stop-button" class="buttons">
+            <i class="fa-solid fa-stop" style="color: red"></i>
+          </button>
+        </div>
+      </div>
+      <div class="circle">
+        <svg height="400" width="400">
+          <circle
+            r="190"
+            cx="200"
+            cy="200"
+            stroke="black"
+            stroke-width="15"
+            stroke-dasharray=""
+            stroke-dashoffset=""
+            transform="rotate(-90 200 200)"
+            fill="transparent"
+          ></circle>
+        </svg>
+      </div>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>
