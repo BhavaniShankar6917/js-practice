@@ -30,15 +30,3 @@ const onInput = (e) => {
 };
 input.addEventListener("input", debounce(onInput));
 
-// let timeoutID;
-// const inputEvent = (e) => {
-//   if (timeoutID) {
-//     // timeoutID = 1;
-//     clearTimeout(timeoutID);
-//     console.log("set to ZERO!");
-//   }
-//   timeoutID = setTimeout(() => {
-//     console.log("Word typed!", e.target.value);
-//   }, 2000);
-// };
-// input.addEventListener("input", inputEvent);
