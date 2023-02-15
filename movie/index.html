@@ -13,6 +13,7 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.css"
     />
     <link rel="stylesheet" href="style.css" />
+    <title>Movies Here</title>
   </head>
   <body>
     <section class="hero is-primary is-bold">
@@ -27,9 +28,13 @@
         </div>
       </div>
     </section>
-    <div class="container">
-      <input type="text" class="movie-search" />
+    <div id="container">
+      <div class="auto-complete"></div>
+      <div id="summary"></div>
     </div>
+    <script src="utils.js"></script>
+    >
+    <script src="autocomplete.js"></script>
     <script src="index.js"></script>
   </body>
 </html>
