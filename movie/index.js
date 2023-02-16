@@ -1,86 +1,75 @@
-const fetchData = async (searchterm) => {
-  //async function
-  const response = await axios.get("http://www.omdbapi.com/", {
-    params: {
-      apikey: "af08d5b1",
-      s: searchterm,
-    },
-  });
-  if (response.data.Error) {
-    return [];
-  }
-
-  return response.data.Search;
-};
-const root = document.querySelector(".auto-complete");
-root.innerHTML = `
-  <label><b>Search for a Movie</b></label>
-  <input class="input" />
-  <div class="dropdown">
-    <div class="dropdown-menu">
-      <div class="dropdowm-content results"></div>
-    </div>
-  </div>
-
-  `;
-const input = document.querySelector("input");
-const dropdown = document.querySelector(".dropdown");
-const resultsWrapper = document.querySelector(".results");
-const onInput = async (e) => {
-  //because fetchData is an async function this should also be treated as an async function or else
-  //fetch will return a promise
-  const results = await fetchData(e.target.value);
-  if (!results.length) {
-    dropdown.classList.remove("is-active");
-    return;
-  }
-  resultsWrapper.innerHTML = "";
-  dropdown.classList.add("is-active");
-  for (let movie of results) {
-    const anchor = document.createElement("a");
-    anchor.classList.add("dropdown-item");
-    if (movie.Poster == "N/A") {
-      anchor.innerHTML = `
-    <img src="https://static.vecteezy.com/system/resources/previews/005/337/799/original/icon-image-not-found-free-vector.jpg" class="result">
+const autocompleteConfig = {
+  renderOption(movie) {
+    const imgSrc = movie.Poster === "N/A" ? "" : movie.Poster;
+    return `
+    <img src="${imgSrc}" class="result">
     ${movie.Title}`;
-    } else {
-      anchor.innerHTML = `
-      <img src="${movie.Poster}" class="result">
-      ${movie.Title}`;
-    }
-    anchor.addEventListener("click", (e) => {
-      dropdown.classList.remove("is-active");
-      input.value = movie.Title;
-      fetchMovieData(movie.imdbID);
+  },
+
+  inputValue(movie) {
+    return movie.Title;
+  },
+  async fetchData(searchterm) {
+    //async function
+    const response = await axios.get("http://www.omdbapi.com/", {
+      params: {
+        apikey: "af08d5b1",
+        s: searchterm,
+      },
     });
-    resultsWrapper.appendChild(anchor);
-  }
-  // dropdown.addEventListener("mouseleave", (e) => {
-  //   dropdown.classList.remove("is-active");
-  // });
-  // input.addEventListener("mouseover", (e) => {
-  //   dropdown.classList.add("is-active");
-  // });
+    if (response.data.Error) {
+      return [];
+    }
+
+    return response.data.Search;
+  },
 };
-document.addEventListener("onclick", (e) => {
-  // dropdown.classList.remove("is-active");
-  if (root.contains(e.target)) {
-    dropdown.classList.add("is-active");
-  } else {
-    dropdown.classList.remove("is-active");
-  }
+
+createAutoComplete({
+  ...autocompleteConfig,
+  root: document.querySelector(".left-autocomplete"),
+  onOptionSelect(movie) {
+    document.querySelector(".tutorial").classList.add("is-hidden");
+    fetchMovieData(movie, document.querySelector("#left-summary"), "left");
+  },
 });
-input.addEventListener("input", debounce(onInput));
-const fetchMovieData = async (id) => {
+createAutoComplete({
+  ...autocompleteConfig,
+  root: document.querySelector(".right-autocomplete"),
+  onOptionSelect(movie) {
+    document.querySelector(".tutorial").classList.add("is-hidden");
+    fetchMovieData(movie, document.querySelector("#right-summary"), "right");
+  },
+});
+
+// dropdown.addEventListener("mouseleave", (e) => {
+//   dropdown.classList.remove("is-active");
+// });
+// input.addEventListener("mouseover", (e) => {
+//   dropdown.classList.add("is-active");
+// });
+let leftMovie;
+let rightMovie;
+const fetchMovieData = async (id, summaryElement, side) => {
   const fullData = await axios.get("http://omdbapi.com/", {
     params: {
       apikey: "af08d5b1",
-      i: id,
+      i: id.imdbID,
     },
   });
-  document.querySelector("#summary").innerHTML = displayMovieDetails(
-    fullData.data
-  );
+  summaryElement.innerHTML = displayMovieDetails(fullData.data);
+  if (side == "left") {
+    leftMovie = fullData.data;
+  } else {
+    rightMovie = fullData.data;
+  }
+  if (leftMovie && rightMovie) {
+    runComparison();
+  }
+};
+
+const runComparison = () => {
+  console.log("time for comparison");
 };
 const displayMovieDetails = (movieDetail) => {
   return `
